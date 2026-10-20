@@ -1,0 +1,19 @@
+# Build files
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Local settings
+appsettings.Development.json
+*.local.json
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak

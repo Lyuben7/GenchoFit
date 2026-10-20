@@ -1,0 +1,41 @@
+@model IEnumerable<CartLine>
+@{
+    var lines = Model.ToList();
+    var total = lines.Sum(line => line.Total);
+}
+<a class="back" asp-controller="Shop" asp-action="Index">← обратно към продуктите</a>
+<section class="cart-page">
+    <h1>Количка</h1>
+    @if (lines.Count == 0)
+    {
+        <p class="cart-empty">Количката е празна. Добави продукт от каталога.</p>
+        <a class="buy" asp-controller="Shop" asp-action="Index">Към продуктите</a>
+    }
+    else
+    {
+        <div class="cart-list">
+            @foreach (var line in lines)
+            {
+                <article class="cart-row">
+                    <div class="cart-emoji">@line.Emoji</div>
+                    <div class="cart-info">
+                        <h3>@line.Name</h3>
+                        <p>@line.Price.ToString("0.00") лв. × @line.Quantity</p>
+                    </div>
+                    <strong>@line.Total.ToString("0.00") лв.</strong>
+                    <form method="post" asp-action="Remove">
+                        <input type="hidden" name="id" value="@line.ProductId" />
+                        <button type="submit" class="cart-remove">Премахни</button>
+                    </form>
+                </article>
+            }
+        </div>
+        <div class="cart-summary">
+            <h2>Общо: @total.ToString("0.00") лв.</h2>
+            <p class="note">* Демонстрационна количка – плащането не е свързано.</p>
+            <form method="post" asp-action="Clear">
+                <button type="submit" class="cart-remove">Изчисти количката</button>
+            </form>
+        </div>
+    }
+</section>

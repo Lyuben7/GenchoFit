@@ -1,0 +1,17 @@
+@model Product
+<a class="back" asp-action="Index">← обратно към продуктите</a>
+<section class="details">
+    <div class="product-pic big">@Model.Emoji</div>
+    <div>
+        <small>@Model.Category</small>
+        <h1>@Model.Name</h1>
+        <p>@Model.Description</p>
+        <h2>@Model.Price.ToString("0.00") лв.</h2>
+        <form method="post" asp-controller="Cart" asp-action="Add">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Cart")" />
+            <button type="submit" class="buy">Добави в количката</button>
+        </form>
+        <p class="note">* Демонстрационна количка – плащането не е свързано.</p>
+    </div>
+</section>
